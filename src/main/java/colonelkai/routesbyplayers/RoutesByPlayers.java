@@ -21,8 +21,8 @@ public final class RoutesByPlayers extends JavaPlugin {
 
     BACKEND TO-DO
     DONE: Implement config
-    TODO: Implement Player
     TODO: Implement StopPoints
+    TODO: Implement Player
     TODO: Implement Routes
         TODO: Implement Route Creation Invite
     TODO: Implement Upkeep
