@@ -1,4 +1,4 @@
 package colonelkai.routesbyplayers.gui.playergui;
 
-public class ListOfOwnRoutes {
+public class NodeMenu {
 }

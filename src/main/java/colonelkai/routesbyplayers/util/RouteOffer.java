@@ -1,4 +1,4 @@
-package colonelkai.routesbyplayers.path;
+package colonelkai.routesbyplayers.util;
 
 public class RouteOffer {
     /*

@@ -38,19 +38,15 @@ public class ConfigManager {
     }
 
     public static String getUseMoney() {
-        return configFile.getString("Upkeep.Money.Use");
+        return configFile.getString("Currency.Vault");
     }
 
-    public static Long getAmountMoney() {
-        return configFile.getLong("Upkeep.Money.Amount");
+    public static double getUpkeepAmount() {
+        return configFile.getDouble("Upkeep.Amount");
     }
 
     public static ItemStack getUpkeepItem() {
-        return configFile.getItemStack("Upkeep.Item.Item");
-    }
-
-    public static Long getItemUpkeepDistance() {
-        return configFile.getLong("Upkeep.Item.Distance");
+        return configFile.getItemStack("Currency.Item");
     }
 
     public static boolean getIfPublicNodes() {

@@ -1,13 +1,15 @@
 Upkeep:
   # Want to learn how upkeep works? Check out the wiki at;
   # https://github.com/ColonelKai/RoutesByPlayers/wiki/Upkeep
-  # requires vault to be installed
-  Money:
-    Use: false # if enabled, will disable item-based Upkeep.
-    Amount: 0.5 # for every block
-  Item:
-    Item: diamond # the item needed for the upkeep
-    Distance: 20 # amount of blocks 1 of Item will pay for.
+    Amount: 10 # amount of blocks 1 currency will cover
+
+Currency:
+  # determines the way which your players will handle upkeep,
+  # and travel costs.
+  # if you should use vault money. Requires Vault, duh.
+  Vault: false
+  # if you aren't using vault, what item you should use.
+  Item: diamond
 
 # if the nodes coordinates will be available to everyone on GUI
 PublicNodes: true
