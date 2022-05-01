@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public class Node implements Identifiable<UUID> {
+public class Node implements Identifiable<String> {
     private Location location;
     private UUID owner;
     private String name;
@@ -57,13 +57,13 @@ public class Node implements Identifiable<UUID> {
     }
 
     @Override
-    public UUID getIdentifier() {
-        return this.owner;
+    public String getIdentifier() {
+        return this.name;
     }
 
     @Override
-    public void setIdentifier(UUID element) {
-        this.owner = element;
+    public void setIdentifier(String element) {
+        this.name = element;
     }
 
     // endregion
