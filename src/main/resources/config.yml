@@ -9,14 +9,14 @@ Upkeep:
     Item: diamond # the item needed for the upkeep
     Distance: 20 # amount of blocks 1 of Item will pay for.
 
-# if the stop points coordinates will be available to everyone on GUI
-PublicStopPoints: true
-# if Dynmap is installed, it will add markers for StopPoints
-StopPointsOnDynmap: true
-# Minimum distance required between 2 StopPoints. If someone tries
-# to create a StopPoint while there is another nearby, the plugin
-# will not allow it.
+# if the nodes coordinates will be available to everyone on GUI
+PublicNodes: true
+# if Dynmap is installed, it will add markers for nodes
+NodesOnDynmap: true
+# Minimum distance required between 2 nodes. If someone tries
+# to create a node while there is another within this distance, the
+# plugin will not allow it.
 MinimumDistance: 0
-# Maximum amount of StopPoints a player can have.
-MaximumStopPoints: 5
+# Maximum amount of Nodes a player can have.
+MaximumNodes: 5
 

@@ -1,4 +1,4 @@
 package colonelkai.routesbyplayers.gui.admingui;
 
-public class AdminListOfPaths {
+public class AdminListOfNodes {
 }

@@ -53,19 +53,19 @@ public class ConfigManager {
         return configFile.getLong("Upkeep.Item.Distance");
     }
 
-    public static boolean getIfPublicStopPoints() {
-        return configFile.getBoolean("PublicStopPoints");
+    public static boolean getIfPublicNodes() {
+        return configFile.getBoolean("PublicNodes");
     }
 
-    public static boolean getStopPointsOnDynmap() {
-        return configFile.getBoolean("StopPointsOnDynmap");
+    public static boolean getNodesOnDynmap() {
+        return configFile.getBoolean("NodesOnDynmap");
     }
 
     public static int getMinimumDistance() {
         return configFile.getInt("MinimumDistance");
     }
 
-    public static int getMaximumStopPoints() {
-        return configFile.getInt("MaximumStopPoints");
+    public static int getMaximumNodes() {
+        return configFile.getInt("MaximumNodes");
     }
 }

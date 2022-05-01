@@ -1,4 +1,4 @@
 package colonelkai.routesbyplayers.gui.playergui;
 
-public class ListOfStopPoints {
+public class ListOfRouteOffers {
 }

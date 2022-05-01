@@ -1,4 +1,4 @@
 package colonelkai.routesbyplayers.gui.travelgui;
 
-public class ListOfTravelPaths {
+public class ListOfTravelRoutes {
 }

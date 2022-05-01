@@ -6,5 +6,5 @@ prefix: [ RoutesByPlayers ]
 loadbefore: [ Dynmap, Vault ]
 softdepend: [ Dynmap, Vault ]
 authors: [ ColonelKai, MoseMister ]
-description: A plugin allowing the players to set up StopPoints and Routes between them for travel. StopPoints and Routes have upkeep, but you can also charge people who use your StopPoint money!
+description: A plugin allowing the players to set up Nodes and Routes between them for travel. Nodes and Routes have upkeep, but you can also charge people who use your Node money!
 website: Github_here

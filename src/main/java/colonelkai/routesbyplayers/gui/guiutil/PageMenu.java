@@ -1,6 +1,6 @@
 package colonelkai.routesbyplayers.gui.guiutil;
 
-public class PageSystem {
+public class PageMenu {
     /*
     an easy way to manage page-based GUIs.
      */
