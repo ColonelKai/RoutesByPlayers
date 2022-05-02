@@ -4,9 +4,9 @@ import colonelkai.routesbyplayers.util.identity.Identifiable;
 
 import java.util.UUID;
 
-public class UserBalance implements Identifiable<UUID> {
-    UUID owner;
-    int amount;
+public abstract class UserBalance implements Identifiable.Serializable<UUID> {
+    protected UUID owner;
+    protected int amount;
 
     // region getset
 
@@ -16,8 +16,8 @@ public class UserBalance implements Identifiable<UUID> {
     }
 
     public void setAmount(int amount) {
-        if(amount < 0) {
-            amount = 0;
+        if (amount < 0) {
+            amount = 0; //THIS SHOULD THROW A ILLEGAL ARGUMENT EXCEPTION
         }
         this.amount = amount;
     }
