@@ -9,7 +9,7 @@ Currency:
   # if you should use vault money. Requires Vault, duh.
   Vault: false
   # if you aren't using vault, what item you should use.
-  Item: diamond
+  Item: DIAMOND
 
 # if the nodes coordinates will be available to everyone on GUI
 PublicNodes: true

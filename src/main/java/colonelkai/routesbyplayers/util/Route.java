@@ -54,6 +54,6 @@ public class Route implements Identifiable.Serializable<RouteIdentifier> {
 
     @Override
     public File getFile(File file) {
-        return new File(file.getPath() + thisyPlay.name + ".yml");
+        return new File(file.getPath() + this.name + ".yml");
     }
 }

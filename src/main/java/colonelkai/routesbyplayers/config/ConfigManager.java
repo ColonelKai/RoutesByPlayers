@@ -1,6 +1,7 @@
 package colonelkai.routesbyplayers.config;
 
 import colonelkai.routesbyplayers.RoutesByPlayers;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -45,8 +46,9 @@ public class ConfigManager {
         return configFile.getDouble("Upkeep.Amount");
     }
 
-    public static ItemStack getUpkeepItem() {
-        return configFile.getItemStack("Currency.Item");
+    public static Material getUpkeepItem() {
+        String deez = configFile.getString("Currency.Item");
+        return Material.getMaterial(deez);
     }
 
     public static boolean getIfPublicNodes() {
