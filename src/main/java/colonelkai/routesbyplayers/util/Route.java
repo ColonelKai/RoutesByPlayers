@@ -1,25 +1,22 @@
 package colonelkai.routesbyplayers.util;
 
-import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.config.ConfigManager;
 import colonelkai.routesbyplayers.util.identity.Identifiable;
 import colonelkai.routesbyplayers.util.identity.customidentifier.RouteIdentifier;
 import org.bukkit.Location;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.AbstractMap;
-import java.util.Map;
 
-public class Route implements Identifiable.Serializable<RouteIdentifier> {
+public class Route implements Identifiable.Serializable<RouteIdentifier>, Comparable<Route> {
     private Node node1;
     private Node node2;
 
     public Node getNode(int nodeNumber) throws IOException {
-        if(nodeNumber == 1) {
+        if (nodeNumber == 1) {
             return node1;
-        }
-        else if(nodeNumber==2) {
+        } else if (nodeNumber == 2) {
             return node2;
         }
         throw new IOException("Invalid parameter passed to getNode(), must be between 1 and 2.");
@@ -35,9 +32,9 @@ public class Route implements Identifiable.Serializable<RouteIdentifier> {
 
         return (int) Math.round(
                 // calculate distances between a and b
-                Math.sqrt( Math.pow(a.getX()-b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2) + Math.pow(a.getZ()+b.getZ(), 2))
-                // divide it with the amount of blocks 1 currency will cover
-                /  ConfigManager.getUpkeepAmount());
+                Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2) + Math.pow(a.getZ() + b.getZ(), 2))
+                        // divide it with the amount of blocks 1 currency will cover
+                        / ConfigManager.getUpkeepAmount());
     }
 
 
@@ -46,14 +43,20 @@ public class Route implements Identifiable.Serializable<RouteIdentifier> {
         return new RouteIdentifier(node1, node2);
     }
 
+    //SEE WHAT I MEAN BY IT MAKES NO SENSE
     @Override
     public void setIdentifier(RouteIdentifier element) {
-        this.node1=element.getNodeA();
-        this.node2=element.getNodeB();
+        this.node1 = element.getNodeA();
+        this.node2 = element.getNodeB();
     }
 
     @Override
     public File getFile(File file) {
-        return new File(file.getPath() + this.name + ".yml");
+        return new File(file.getPath() + this.getIdentifier().getId() + ".yml");
+    }
+
+    @Override
+    public int compareTo(@NotNull Route o) {
+        return this.getIdentifier().compareTo(o.getIdentifier());
     }
 }
