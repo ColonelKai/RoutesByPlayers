@@ -1,0 +1,10 @@
+name: RoutesByPlayers
+version: 'a0.2'
+main: colonelkai.routesbyplayers.RoutesByPlayers
+api-version: 1.18
+prefix: [ RoutesByPlayers ]
+loadbefore: [ Dynmap, Vault ]
+softdepend: [ Dynmap, Vault ]
+authors: [ ColonelKai, MoseMister ]
+description: A plugin allowing the players to set up StopPoints and Routes between them for travel. StopPoints and Routes have upkeep, but you can also charge people who use your StopPoint money!
+website: Github_here

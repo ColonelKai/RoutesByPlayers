@@ -1,15 +1,17 @@
 package colonelkai.routesbyplayers.util;
 
+import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.config.ConfigManager;
 import colonelkai.routesbyplayers.util.identity.Identifiable;
 import colonelkai.routesbyplayers.util.identity.customidentifier.RouteIdentifier;
 import org.bukkit.Location;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.Map;
 
-public class Route implements Identifiable<RouteIdentifier> {
+public class Route implements Identifiable.Serializable<RouteIdentifier> {
     private Node node1;
     private Node node2;
 
@@ -48,5 +50,11 @@ public class Route implements Identifiable<RouteIdentifier> {
     public void setIdentifier(RouteIdentifier element) {
         this.node1=element.getNodeA();
         this.node2=element.getNodeB();
+    }
+
+    @Override
+    public File getFile() {
+        return new File(RoutesByPlayers.getPlugin().getDataFolder(),
+                "data/route/" + this.name + ".yml");
     }
 }

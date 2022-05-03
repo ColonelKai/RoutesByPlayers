@@ -32,7 +32,7 @@ public class IncomeBalanceManager extends AbstractManager<UUID, IncomeBalance> {
 
     @Override
     public void save(IncomeBalance value) throws IOException {
-        File file = this.getDefaultLocation();
+        File file = value.getFile().getParentFile();
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
@@ -45,9 +45,5 @@ public class IncomeBalanceManager extends AbstractManager<UUID, IncomeBalance> {
         configuration.save(file);
     }
 
-    @Override
-    public File getDefaultLocation() {
-        return new File(RoutesByPlayers.getPlugin().getDataFolder(),
-                "data" + File.separator + "incomebalance");
-    }
+
 }

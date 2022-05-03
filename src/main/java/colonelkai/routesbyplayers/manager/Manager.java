@@ -7,12 +7,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/*
-every single class that implements manager needs a better system for saving
-data, but I'm so frustrated to the point that I can't be arsed anymore.
-If you're picking up the rubble after I've left, or if you're mose, I'm sorry.
- */
-
 public interface Manager<V, T extends Identifiable.Serializable<V>> {
 
     Collection<T> getElements();
@@ -26,8 +20,6 @@ public interface Manager<V, T extends Identifiable.Serializable<V>> {
     boolean remove(T element);
 
     Optional<T> getBy(V value);
-
-    File getDefaultLocation();
 
     default void saveAll() {
         for (T element : this.getElements()) {

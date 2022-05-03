@@ -1,13 +1,15 @@
 package colonelkai.routesbyplayers.util;
 
+import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.util.identity.Identifiable;
 import org.bukkit.Location;
 
+import java.io.File;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
-public class Node implements Identifiable<String> {
+public class Node implements Identifiable.Serializable<String> {
     private Location location;
     private UUID owner;
     private String name;
@@ -40,16 +42,17 @@ public class Node implements Identifiable<String> {
 
     // region getset
 
-    public String getName() {
-        return name;
+
+    public UUID getOwner() {
+        return this.owner;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setOwner(UUID owner) {
+        this.owner = owner;
     }
 
     public Location getLocation() {
-        return location;
+        return this.location;
     }
 
     public void setLocation(Location location) {
@@ -64,6 +67,12 @@ public class Node implements Identifiable<String> {
     @Override
     public void setIdentifier(String element) {
         this.name = element;
+    }
+
+    @Override
+    public File getFile() {
+        return new File(RoutesByPlayers.getPlugin().getDataFolder(),
+                "data/node/" + this.name + ".yml");
     }
 
     // endregion

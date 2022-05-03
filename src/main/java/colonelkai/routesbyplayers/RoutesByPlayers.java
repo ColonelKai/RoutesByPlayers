@@ -19,18 +19,6 @@ public final class RoutesByPlayers extends JavaPlugin {
         TODO: List of Node
         TODO: List of Routes
 
-    BACKEND TO-DO
-    DONE: Implement config
-    TODO: Implement Nodes
-    TODO: Implement Player
-    TODO: Implement Routes
-        TODO: Implement Route Creation Invite
-    TODO: Implement Upkeep
-    TODO: Implement Travel
-        TODO: Implement Travel Cost
-    TODO: Implement Admin Stuff
-        TODO: Implement Admin Removal of Path & Node
-
      Holy Dot -> .
      */
 
