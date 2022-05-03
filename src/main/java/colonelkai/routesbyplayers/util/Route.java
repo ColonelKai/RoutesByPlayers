@@ -53,8 +53,7 @@ public class Route implements Identifiable.Serializable<RouteIdentifier> {
     }
 
     @Override
-    public File getFile() {
-        return new File(RoutesByPlayers.getPlugin().getDataFolder(),
-                "data/route/" + this.name + ".yml");
+    public File getFile(File file) {
+        return new File(file.getPath() + thisyPlay.name + ".yml");
     }
 }

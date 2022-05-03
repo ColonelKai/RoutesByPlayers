@@ -11,8 +11,7 @@ public class IncomeBalance extends UserBalance {
     }
 
     @Override
-    public File getFile() {
-        return new File(RoutesByPlayers.getPlugin().getDataFolder(),
-                "data/balance/incoming/" + this.owner.toString() + ".yml");
+    public File getFile(File file) {
+        return new File(file.getPath() + this.owner.toString() + ".yml");
     }
 }

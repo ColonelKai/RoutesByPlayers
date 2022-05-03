@@ -1,5 +1,6 @@
 package colonelkai.routesbyplayers.manager;
 
+import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.config.key.SerializationKeys;
 import colonelkai.routesbyplayers.util.Route;
 import colonelkai.routesbyplayers.util.identity.customidentifier.RouteIdentifier;
@@ -24,7 +25,7 @@ public class RouteManager extends AbstractManager<RouteIdentifier, Route> {
 
     @Override
     public void save(Route value) throws IOException {
-        File file = value.getFile().getParentFile();
+        File file = value.getFile(this.getParentFolder());
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
@@ -34,5 +35,10 @@ public class RouteManager extends AbstractManager<RouteIdentifier, Route> {
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         SerializationKeys.ROUTE_IDENTIFIER.set(configuration, value.getIdentifier());
         configuration.save(file);
+    }
+
+    @Override
+    public File getParentFolder() {
+        return new File(RoutesByPlayers.getPlugin().getDataFolder() + File.separator + "data/route");
     }
 }

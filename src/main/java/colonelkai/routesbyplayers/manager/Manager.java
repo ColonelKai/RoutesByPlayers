@@ -17,6 +17,8 @@ public interface Manager<V, T extends Identifiable.Serializable<V>> {
 
     boolean add(T element);
 
+    boolean addAll(Collection<? extends T> elements);
+
     boolean remove(T element);
 
     Optional<T> getBy(V value);
@@ -45,6 +47,8 @@ public interface Manager<V, T extends Identifiable.Serializable<V>> {
             }
         }).filter(Objects::nonNull).collect(Collectors.toSet());
     }
+
+    File getParentFolder();
 
 
     /*default boolean add(T element) {

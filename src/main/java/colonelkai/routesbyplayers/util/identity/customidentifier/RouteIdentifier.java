@@ -14,8 +14,8 @@ public class RouteIdentifier {
 
     @Override
     public int hashCode(){
-        String nameA = this.nodeA.getName();
-        String nameB = this.nodeB.getName();
+        String nameA = this.nodeA.getIdentifier();
+        String nameB = this.nodeB.getIdentifier();
         String finalString = "";
 
         if(nameA.compareTo(nameB)>0) {

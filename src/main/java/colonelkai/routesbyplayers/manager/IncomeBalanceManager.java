@@ -32,7 +32,7 @@ public class IncomeBalanceManager extends AbstractManager<UUID, IncomeBalance> {
 
     @Override
     public void save(IncomeBalance value) throws IOException {
-        File file = value.getFile().getParentFile();
+        File file = value.getFile(this.getParentFolder());
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
@@ -43,6 +43,11 @@ public class IncomeBalanceManager extends AbstractManager<UUID, IncomeBalance> {
         SerializationKeys.AMOUNT.set(configuration, value.getAmount());
         SerializationKeys.OWNER.set(configuration, value.getIdentifier());
         configuration.save(file);
+    }
+
+    @Override
+    public File getParentFolder() {
+        return new File(RoutesByPlayers.getPlugin().getDataFolder() + File.separator + "data/incomebalance");
     }
 
 

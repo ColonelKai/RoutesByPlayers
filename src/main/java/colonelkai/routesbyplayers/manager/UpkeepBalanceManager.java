@@ -1,5 +1,6 @@
 package colonelkai.routesbyplayers.manager;
 
+import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.config.key.SerializationKeys;
 import colonelkai.routesbyplayers.util.balance.IncomeBalance;
 import colonelkai.routesbyplayers.util.balance.UpkeepBalance;
@@ -31,7 +32,7 @@ public class UpkeepBalanceManager extends AbstractManager<UUID, UpkeepBalance> {
 
     @Override
     public void save(UpkeepBalance value) throws IOException {
-        File file = value.getFile().getParentFile();
+        File file = value.getFile(this.getParentFolder());
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
@@ -42,5 +43,10 @@ public class UpkeepBalanceManager extends AbstractManager<UUID, UpkeepBalance> {
         SerializationKeys.AMOUNT.set(configuration, value.getAmount());
         SerializationKeys.OWNER.set(configuration, value.getIdentifier());
         configuration.save(file);
+    }
+
+    @Override
+    public File getParentFolder() {
+        return new File(RoutesByPlayers.getPlugin().getDataFolder() + File.separator + "data/upkeepbalance");
     }
 }

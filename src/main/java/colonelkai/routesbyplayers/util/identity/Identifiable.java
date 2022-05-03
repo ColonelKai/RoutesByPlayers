@@ -5,7 +5,7 @@ import java.io.File;
 public interface Identifiable<T> {
 
     interface Serializable<T> extends Identifiable<T> {
-        File getFile();
+        File getFile(File file);
     }
 
     T getIdentifier();

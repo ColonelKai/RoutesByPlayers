@@ -1,6 +1,7 @@
 package colonelkai.routesbyplayers.util;
 
 import colonelkai.routesbyplayers.RoutesByPlayers;
+import colonelkai.routesbyplayers.manager.Managers;
 import colonelkai.routesbyplayers.util.identity.Identifiable;
 import org.bukkit.Location;
 
@@ -8,6 +9,7 @@ import java.io.File;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Node implements Identifiable.Serializable<String> {
     private Location location;
@@ -21,8 +23,11 @@ public class Node implements Identifiable.Serializable<String> {
     }
 
     public Set<Route> getRoutes() {
-        // TODO here
-        return null;
+        return Managers.ROUTE_MANAGER
+                .getElements()
+                .parallelStream()
+                .filter(r -> r.containsNode(this))
+                .collect(Collectors.toSet());
     }
 
     public Optional<Route> getRoute(Node otherNode) {
@@ -70,9 +75,8 @@ public class Node implements Identifiable.Serializable<String> {
     }
 
     @Override
-    public File getFile() {
-        return new File(RoutesByPlayers.getPlugin().getDataFolder(),
-                "data/node/" + this.name + ".yml");
+    public File getFile(File file) {
+        return new File(file.getPath() + this.name + ".yml");
     }
 
     // endregion

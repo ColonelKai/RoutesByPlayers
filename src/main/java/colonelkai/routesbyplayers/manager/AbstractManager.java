@@ -22,6 +22,11 @@ public abstract class AbstractManager<V, T extends Identifiable.Serializable<V>>
     }
 
     @Override
+    public boolean addAll(Collection<? extends T> elements) {
+        return this.elements.addAll(elements);
+    }
+
+    @Override
     public boolean remove(T element) {
         return this.elements.remove(element);
     }
@@ -30,4 +35,5 @@ public abstract class AbstractManager<V, T extends Identifiable.Serializable<V>>
     public Optional<T> getBy(V value) {
         return this.elements.parallelStream().filter(ident -> ident.getIdentifier().equals(value)).findFirst();
     }
+
 }

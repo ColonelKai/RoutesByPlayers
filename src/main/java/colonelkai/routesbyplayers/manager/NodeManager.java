@@ -35,7 +35,7 @@ public class NodeManager extends AbstractManager<String, Node> {
 
     @Override
     public void save(Node value) throws IOException {
-        File file = value.getFile().getParentFile();
+        File file = value.getFile(this.getParentFolder());
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             if (!file.createNewFile()) {
@@ -47,6 +47,11 @@ public class NodeManager extends AbstractManager<String, Node> {
         SerializationKeys.OWNER.set(configuration, value.getOwner());
         SerializationKeys.NAME.set(configuration, value.getIdentifier());
         configuration.save(file);
+    }
+
+    @Override
+    public File getParentFolder() {
+        return new File(RoutesByPlayers.getPlugin().getDataFolder() + File.separator + "data/node");
     }
 
 }
