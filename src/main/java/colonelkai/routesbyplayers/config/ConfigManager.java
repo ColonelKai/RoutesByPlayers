@@ -38,8 +38,8 @@ public class ConfigManager {
         configFile = YamlConfiguration.loadConfiguration(file);
     }
 
-    public static String getUseMoney() {
-        return configFile.getString("Currency.Vault");
+    public static boolean getUseMoney() {
+        return configFile.getBoolean("Currency.Vault");
     }
 
     public static double getUpkeepAmount() {
