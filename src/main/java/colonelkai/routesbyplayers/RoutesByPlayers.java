@@ -1,7 +1,10 @@
 package colonelkai.routesbyplayers;
 
 import colonelkai.routesbyplayers.config.ConfigManager;
-import colonelkai.routesbyplayers.manager.*;
+import colonelkai.routesbyplayers.gui.InventoryEventHandler;
+import colonelkai.routesbyplayers.manager.Manager;
+import colonelkai.routesbyplayers.manager.Managers;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +37,7 @@ public final class RoutesByPlayers extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
+        Bukkit.getPluginManager().registerEvents(new InventoryEventHandler(), this);
         ConfigManager.readConfig();
         this.getLogger().info("Loading Data...");
         RoutesByPlayers.loadAllData();
@@ -45,17 +49,10 @@ public final class RoutesByPlayers extends JavaPlugin {
     }
 
     private static void loadAllData() {
-        Managers.NODE_MANAGER.addAll(Managers.NODE_MANAGER.loadAll(Managers.NODE_MANAGER.getParentFolder()));
-        Managers.ROUTE_MANAGER.addAll(Managers.ROUTE_MANAGER.loadAll(Managers.ROUTE_MANAGER.getParentFolder()));
-        Managers.UPKEEP_BALANCE_MANAGER.addAll(Managers.UPKEEP_BALANCE_MANAGER.loadAll(Managers.UPKEEP_BALANCE_MANAGER.getParentFolder()));
-        Managers.INCOME_BALANCE_MANAGER.addAll(Managers.INCOME_BALANCE_MANAGER.loadAll(Managers.INCOME_BALANCE_MANAGER.getParentFolder()));
+        Managers.getInstance().getSerializableManagers().forEach(Manager::reloadAll);
     }
 
     private static void saveAllData() {
-        Managers.NODE_MANAGER.saveAll();
-        Managers.ROUTE_MANAGER.saveAll();
-        Managers.UPKEEP_BALANCE_MANAGER.saveAll();
-        Managers.INCOME_BALANCE_MANAGER.saveAll();
-
+        Managers.getInstance().getSerializableManagers().forEach(Manager::saveAll);
     }
 }

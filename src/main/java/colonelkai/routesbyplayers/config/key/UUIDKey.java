@@ -1,6 +1,6 @@
 package colonelkai.routesbyplayers.config.key;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -13,9 +13,9 @@ public class UUIDKey extends AbstractSerializationKey<UUID> {
     }
 
     @Override
-    public @NotNull Optional<UUID> get(@NotNull YamlConfiguration configuration) {
+    public @NotNull Optional<UUID> get(@NotNull FileConfiguration configuration) {
         String uuidString = configuration.getString(this.getNode());
-        if (uuidString==null) {
+        if (uuidString == null) {
             return Optional.empty();
         }
         try {

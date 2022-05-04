@@ -12,7 +12,7 @@ public abstract class UserBalance implements Identifiable.Serializable<UUID> {
 
 
     public int getAmount() {
-        return amount;
+        return this.amount;
     }
 
     public void setAmount(int amount) {

@@ -1,10 +1,11 @@
 package colonelkai.routesbyplayers.config;
 
 import colonelkai.routesbyplayers.RoutesByPlayers;
+import colonelkai.routesbyplayers.config.key.SerializationKeys;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,57 +14,99 @@ import java.nio.file.Files;
 
 public class ConfigManager {
 
-    private static File file;
-    private static FileConfiguration configFile;
+    private final File file = new File(RoutesByPlayers.getPlugin().getDataFolder(), "config.yml");
+    private @Nullable FileConfiguration configFile;
 
-    private static void recreate() {
-        boolean exist = file.exists();
-        if (!file.delete() && exist) {
+    private void recreate() {
+        InputStream stream = RoutesByPlayers.getPlugin().getResource("/config.yml");
+        if (stream == null) {
+            throw new RuntimeException("config.yml is not located inside jar");
+        }
+        boolean exist = this.file.exists();
+        if (exist && !this.file.delete()) {
             throw new IllegalStateException("Failed to create the config. Something went wrong");
         }
-        InputStream stream = RoutesByPlayers.getPlugin().getResource("/config.yml");
         try {
-            Files.copy(stream, file.toPath());
+            Files.copy(stream, this.file.toPath());
         } catch (IOException e) {
             throw new IllegalStateException("Failed to create the config. Something went wrong");
         }
     }
 
-    public static void readConfig() {
-        file = new File(RoutesByPlayers.getPlugin().getDataFolder(), "config.yml");
-
-        if (!file.exists()) {
-            recreate();
+    public void readConfig() {
+        if (!this.file.exists()) {
+            this.recreate();
         }
-        configFile = YamlConfiguration.loadConfiguration(file);
+        this.configFile = YamlConfiguration.loadConfiguration(this.file);
     }
 
-    public static boolean getUseMoney() {
-        return configFile.getBoolean("Currency.Vault");
+    public boolean getUseMoney() {
+        if (this.configFile == null) {
+            this.readConfig();
+        }
+        if (this.configFile == null) {
+            throw new RuntimeException("Cannot recreate config file");
+        }
+        return SerializationKeys.USE_VAULT.get(this.configFile).orElse(false);
     }
 
-    public static double getUpkeepAmount() {
-        return configFile.getDouble("Upkeep.Amount");
+    public double getUpkeepAmount() {
+        if (this.configFile == null) {
+            this.readConfig();
+        }
+        if (this.configFile == null) {
+            throw new RuntimeException("Cannot recreate config file");
+        }
+        return SerializationKeys.UPKEEP_AMOUNT.get(this.configFile).orElse(1.0);
     }
 
-    public static Material getUpkeepItem() {
-        String deez = configFile.getString("Currency.Item");
-        return Material.getMaterial(deez);
+    public Material getUpkeepItem() {
+        if (this.configFile == null) {
+            this.readConfig();
+        }
+        if (this.configFile == null) {
+            throw new RuntimeException("Cannot recreate config file");
+        }
+        return SerializationKeys.UPKEEP_ITEM.get(this.configFile).orElse(Material.DIAMOND_BLOCK);
     }
 
-    public static boolean getIfPublicNodes() {
-        return configFile.getBoolean("PublicNodes");
+    public boolean getIfPublicNodes() {
+        if (this.configFile == null) {
+            this.readConfig();
+        }
+        if (this.configFile == null) {
+            throw new RuntimeException("Cannot recreate config file");
+        }
+        return SerializationKeys.NODES_PUBLIC.get(this.configFile).orElse(true);
     }
 
-    public static boolean getNodesOnDynmap() {
-        return configFile.getBoolean("NodesOnDynmap");
+    public boolean getNodesOnDynmap() {
+        if (this.configFile == null) {
+            this.readConfig();
+        }
+        if (this.configFile == null) {
+            throw new RuntimeException("Cannot recreate config file");
+        }
+        return SerializationKeys.NODES_DYNMAP.get(this.configFile).orElse(false);
     }
 
-    public static int getMinimumDistance() {
-        return configFile.getInt("MinimumDistance");
+    public int getMinimumDistance() {
+        if (this.configFile == null) {
+            this.readConfig();
+        }
+        if (this.configFile == null) {
+            throw new RuntimeException("Cannot recreate config file");
+        }
+        return SerializationKeys.ROUTE_DISTANCE_MIN.get(this.configFile).orElse(5);
     }
 
-    public static int getMaximumNodes() {
-        return configFile.getInt("MaximumNodes");
+    public int getMaximumNodes() {
+        if (this.configFile == null) {
+            this.readConfig();
+        }
+        if (this.configFile == null) {
+            throw new RuntimeException("Cannot recreate config file");
+        }
+        return SerializationKeys.NODES_MAXIMUM.get(this.configFile).orElse(10);
     }
 }

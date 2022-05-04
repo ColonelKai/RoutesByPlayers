@@ -1,6 +1,5 @@
 package colonelkai.routesbyplayers.util;
 
-import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.manager.Managers;
 import colonelkai.routesbyplayers.util.identity.Identifiable;
 import org.bukkit.Location;
@@ -23,7 +22,7 @@ public class Node implements Identifiable.Serializable<String> {
     }
 
     public Set<Route> getRoutes() {
-        return Managers.ROUTE_MANAGER
+        return Managers.getInstance().getRouteManager()
                 .getElements()
                 .parallelStream()
                 .filter(r -> r.containsNode(this))

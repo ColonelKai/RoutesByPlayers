@@ -1,6 +1,6 @@
 package colonelkai.routesbyplayers.config.key;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +13,7 @@ public abstract class AbstractSerializationKey<T> implements SerializationKey<T>
     }
 
     @Override
-    public void set(@NotNull YamlConfiguration configuration, @Nullable T value) {
+    public void set(@NotNull FileConfiguration configuration, @Nullable T value) {
         configuration.set(this.getNode(), value);
     }
 

@@ -1,7 +1,8 @@
 package colonelkai.routesbyplayers.util.currency;
 
-abstract public class AbstractCurrency implements Currency {
-    int amount;
+public abstract class AbstractCurrency implements Currency {
+
+    private int amount;
 
     public AbstractCurrency(int amount) {
         this.amount = amount;
