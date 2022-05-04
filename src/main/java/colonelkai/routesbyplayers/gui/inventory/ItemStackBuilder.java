@@ -55,7 +55,18 @@ public class ItemStackBuilder {
     }
 
     public ItemStackBuilder from(ItemStack stack) {
-        //TODO
+        this.material = stack.getType();
+        this.amount = stack.getAmount();
+        ItemMeta meta = stack.getItemMeta();
+        if (meta == null) {
+            return this;
+        }
+        this.lore.clear();
+        if (meta.getLore() != null) {
+            this.lore.addAll(meta.getLore());
+        }
+        this.name = meta.getDisplayName();
+        return this;
     }
 
     public ItemStack build() {

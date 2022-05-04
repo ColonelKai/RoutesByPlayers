@@ -1,6 +1,6 @@
 package colonelkai.routesbyplayers.config.key;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -11,7 +11,7 @@ public class StringKey extends AbstractSerializationKey<String> {
     }
 
     @Override
-    public @NotNull Optional<String> get(@NotNull YamlConfiguration configuration) {
+    public @NotNull Optional<String> get(@NotNull FileConfiguration configuration) {
         return Optional.ofNullable(configuration.getString(this.getNode()));
     }
 }

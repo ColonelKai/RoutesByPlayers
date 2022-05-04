@@ -1,6 +1,6 @@
 package colonelkai.routesbyplayers.config.key;
 
-import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -12,7 +12,7 @@ public class IntegerKey extends AbstractSerializationKey<Integer> {
     }
 
     @Override
-    public @NotNull Optional<Integer> get(@NotNull YamlConfiguration configuration) {
+    public @NotNull Optional<Integer> get(@NotNull FileConfiguration configuration) {
         //check fixes the default boolean value of '0'
         if (configuration.contains(this.getNode(), true)) {
             return Optional.empty();

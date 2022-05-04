@@ -1,6 +1,6 @@
 package colonelkai.routesbyplayers.util;
 
-import colonelkai.routesbyplayers.config.ConfigManager;
+import colonelkai.routesbyplayers.manager.Managers;
 import colonelkai.routesbyplayers.util.identity.Identifiable;
 import colonelkai.routesbyplayers.util.identity.customidentifier.RouteIdentifier;
 import org.bukkit.Location;
@@ -15,32 +15,32 @@ public class Route implements Identifiable.Serializable<RouteIdentifier>, Compar
 
     public Node getNode(int nodeNumber) throws IOException {
         if (nodeNumber == 1) {
-            return node1;
+            return this.node1;
         } else if (nodeNumber == 2) {
-            return node2;
+            return this.node2;
         }
         throw new IOException("Invalid parameter passed to getNode(), must be between 1 and 2.");
     }
 
     public boolean containsNode(Node node) {
-        return (node1.equals(node) || node2.equals(node));
+        return (this.node1.equals(node) || this.node2.equals(node));
     }
 
     public int getUpkeep() {
-        Location a = node1.getLocation();
-        Location b = node2.getLocation();
+        Location a = this.node1.getLocation();
+        Location b = this.node2.getLocation();
 
         return (int) Math.round(
                 // calculate distances between a and b
-                Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2) + Math.pow(a.getZ() + b.getZ(), 2))
+                Math.sqrt(StrictMath.pow(a.getX() - b.getX(), 2) + StrictMath.pow(a.getY() - b.getY(), 2) + StrictMath.pow(a.getZ() + b.getZ(), 2))
                         // divide it with the amount of blocks 1 currency will cover
-                        / ConfigManager.getUpkeepAmount());
+                        / Managers.getInstance().getConfigManager().getUpkeepAmount());
     }
 
 
     @Override
     public RouteIdentifier getIdentifier() {
-        return new RouteIdentifier(node1, node2);
+        return new RouteIdentifier(this.node1, this.node2);
     }
 
     //SEE WHAT I MEAN BY IT MAKES NO SENSE

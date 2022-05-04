@@ -2,7 +2,6 @@ package colonelkai.routesbyplayers.gui.inventory.slot.event;
 
 import colonelkai.routesbyplayers.gui.inventory.InventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.PagedInventoryTemplate;
-import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,8 +10,8 @@ import java.util.List;
 
 public interface SlotEvents {
 
-    SlotDragEvent<Slot> CANCEL_DRAG = (event, slot) -> event.setCancelled(true);
-    SlotClickEvent<Slot> TO_PAGE_CLICK_EVENT = (event, slot) -> {
+    SlotDragEvent CANCEL_DRAG = (event, slot) -> event.setCancelled(true);
+    SlotClickEvent TO_PAGE_CLICK_EVENT = (event, slot) -> {
         InventoryTemplate inv = slot.getTemplate();
         if (!(inv instanceof PagedInventoryTemplate)) {
             throw new RuntimeException("To Page Click Event can only be applied to 'PagedInventoryTemplate's ");
@@ -45,7 +44,7 @@ public interface SlotEvents {
         if (page < 0) {
             page = 0;
         }
-        Player player = (Player) event.getWhoClicked(); //bukkit doesnt allow any other human entity by default -> so this is a safe cast
+        Player player = (Player) event.getWhoClicked(); //bukkit doesn't allow any other human entity by default -> so this is a safe cast
         ((PagedInventoryTemplate) inv).create(player, page);
     };
 }
