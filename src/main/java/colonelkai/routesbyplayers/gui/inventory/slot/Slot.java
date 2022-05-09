@@ -15,11 +15,10 @@ public class Slot implements Comparable<Slot> {
 
     private final int slotIndex;
     private final @NotNull ItemStack stack;
-    private final Collection<SlotEvent<?, ? extends Slot>> events = new HashSet<>();
+    private final Collection<SlotEvent<?>> events = new HashSet<>();
     private final @NotNull InventoryTemplate template;
 
-    @SafeVarargs
-    protected Slot(@NotNull InventoryTemplate template, int slotIndex, @NotNull ItemStack stack, SlotEvent<?, ? extends Slot>... events) {
+    protected Slot(@NotNull InventoryTemplate template, int slotIndex, @NotNull ItemStack stack, SlotEvent<?>... events) {
         this.slotIndex = slotIndex;
         this.stack = stack;
         this.events.addAll(Arrays.asList(events));
@@ -38,8 +37,8 @@ public class Slot implements Comparable<Slot> {
         return this.stack.clone();
     }
 
-    public <E extends InventoryEvent> Collection<? extends SlotEvent<E, ? extends Slot>> getEvents(Class<E> clazz) {
-        return this.events.stream().filter(slot -> slot.getTargetClass().isAssignableFrom(clazz)).map(slot -> (SlotEvent<E, ? extends Slot>) slot).collect(Collectors.toSet());
+    public <E extends InventoryEvent> Collection<? extends SlotEvent<E>> getEvents(Class<E> clazz) {
+        return this.events.stream().filter(slot -> slot.getTargetClass().isAssignableFrom(clazz)).map(slot -> (SlotEvent<E>) slot).collect(Collectors.toSet());
     }
 
     @Override

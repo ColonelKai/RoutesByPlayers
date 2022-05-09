@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class ConfigManager {
 
@@ -18,7 +19,7 @@ public class ConfigManager {
     private @Nullable FileConfiguration configFile;
 
     private void recreate() {
-        InputStream stream = RoutesByPlayers.getPlugin().getResource("/config.yml");
+        InputStream stream = RoutesByPlayers.getPlugin().getResource("config.yml");
         if (stream == null) {
             throw new RuntimeException("config.yml is not located inside jar");
         }
@@ -27,9 +28,15 @@ public class ConfigManager {
             throw new IllegalStateException("Failed to create the config. Something went wrong");
         }
         try {
-            Files.copy(stream, this.file.toPath());
+            if(!this.file.getParentFile().exists()){
+                this.file.getParentFile().mkdirs();
+            }
+            if(!this.file.exists()){
+                this.file.createNewFile();
+            }
+            Files.copy(stream, this.file.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            throw new IllegalStateException("Failed to create the config. Something went wrong");
+            throw new IllegalStateException("Failed to create the config. Something went wrong", e);
         }
     }
 
