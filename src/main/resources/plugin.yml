@@ -2,9 +2,25 @@ name: RoutesByPlayers
 version: '${project.version}'
 main: colonelkai.routesbyplayers.RoutesByPlayers
 api-version: 1.18
-prefix: [ RoutesByPlayers ]
+prefix: RoutesByPlayers
 loadbefore: [ Dynmap, Vault ]
 softdepend: [ Dynmap, Vault ]
 authors: [ ColonelKai, MoseMister ]
 description: A plugin allowing the players to set up Nodes and Routes between them for travel. Nodes and Routes have upkeep, but you can also charge people who use your Node money!
-website: Github_here
+website: https://github.com/ColonelKai/RoutesByPlayers
+permissions:
+  routesbyplayers.default:
+    default: true
+    description: Allows you to use RoutesByPlayers
+  routesbyplayers.admin:
+    default: op
+    description: Allows you to use RoutesByPlayers as an Administrator.
+commands:
+  RoutesByPlayers:
+    description: The Main GUI command for RoutesByPlayers!
+    usage: /RoutesByPlayers
+    permission: routesbyplayers.default
+  rbp_gui_debug:
+    description: Debug command used for GUI.
+    usage: /rbp_gui_debug [gui]
+    permission: routesbyplayers.admin

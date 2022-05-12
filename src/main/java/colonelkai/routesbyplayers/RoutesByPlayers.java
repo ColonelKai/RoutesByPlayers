@@ -1,5 +1,7 @@
 package colonelkai.routesbyplayers;
 
+import colonelkai.routesbyplayers.commands.Commands;
+import colonelkai.routesbyplayers.commands.RoutesByPlayersCommand;
 import colonelkai.routesbyplayers.config.ConfigManager;
 import colonelkai.routesbyplayers.gui.InventoryEventHandler;
 import colonelkai.routesbyplayers.manager.Manager;
@@ -41,6 +43,8 @@ public final class RoutesByPlayers extends JavaPlugin {
         Managers.getInstance().getConfigManager().readConfig();
         this.getLogger().info("Loading Data...");
         RoutesByPlayers.loadAllData();
+        this.getLogger().info("Registering commands...");
+        Commands.register();
     }
 
     @Override

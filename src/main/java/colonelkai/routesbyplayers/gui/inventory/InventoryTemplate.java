@@ -22,7 +22,7 @@ public interface InventoryTemplate {
     }
 
     default @NotNull Inventory create(@NotNull Player player) {
-        Inventory inventory = Bukkit.createInventory(player, 64, this.getTemplateName());
+        Inventory inventory = Bukkit.createInventory(player, this.getInventorySize(), this.getTemplateName());
         Collection<Slot> slots = this.getSlots();
         slots.forEach(slot -> {
             ItemStack stack = slot.getStack();
