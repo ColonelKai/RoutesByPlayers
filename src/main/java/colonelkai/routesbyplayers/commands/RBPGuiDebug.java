@@ -33,19 +33,10 @@ public class RBPGuiDebug implements CommandExecutor {
         }
         String name = args[0];
         if (name.equals("RouteList")) {
-            if (Managers.getInstance().getRouteManager().getElements().isEmpty()) {
-                Route route = new Route();
-                try {
-                    Managers.getInstance().getRouteManager().add(route);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
             player.openInventory(InventoryTemplates.ROUTE.create(player));
             player.sendMessage("Opening RouteList...");
             return true;
-        }
-        else if(name.equals("CreateTestRoutenNodes")) {
+        } else if (name.equals("CreateTestRoutenNodes")) {
             player.sendMessage("Creating....");
             Node nodeA = new Node(
                     new Location(RoutesByPlayers.getPlugin().getServer().getWorld("world"), 1000, 0, 1000),
@@ -81,7 +72,7 @@ public class RBPGuiDebug implements CommandExecutor {
             }
 
             return true;
-        } else if(name.equals("saveAll")) {
+        } else if (name.equals("saveAll")) {
             RoutesByPlayers.saveAllData();
         }
         player.sendMessage("reached fi.");
