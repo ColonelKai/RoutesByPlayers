@@ -4,3 +4,4 @@
 *.iml
 /testserver/
 /libraries/
+/target/
