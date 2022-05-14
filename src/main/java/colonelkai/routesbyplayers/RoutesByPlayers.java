@@ -10,6 +10,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
+
 public final class RoutesByPlayers extends JavaPlugin {
 
     /*
@@ -39,7 +41,6 @@ public final class RoutesByPlayers extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         plugin = this;
-        Bukkit.getPluginManager().registerEvents(new InventoryEventHandler(), this);
         Managers.getInstance().getConfigManager().readConfig();
         RoutesByPlayers.loadAllData();
         this.getLogger().info("Registering Events...");
@@ -60,6 +61,7 @@ public final class RoutesByPlayers extends JavaPlugin {
 
     public static void saveAllData() {
         RoutesByPlayers.getPlugin().getLogger().info("Saving Data...");
-        Managers.getInstance().getSerializableManagers().forEach(Manager::saveAll);
+        Collection<Manager<?, ?>> managers = Managers.getInstance().getSerializableManagers();
+        managers.forEach(Manager::saveAll);
     }
 }

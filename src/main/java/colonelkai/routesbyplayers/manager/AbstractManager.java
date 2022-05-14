@@ -2,8 +2,10 @@ package colonelkai.routesbyplayers.manager;
 
 import colonelkai.routesbyplayers.util.identity.Identifiable;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
 
 public abstract class AbstractManager<V, T extends Identifiable.Serializable<V>> implements Manager<V, T> {
 
@@ -15,10 +17,7 @@ public abstract class AbstractManager<V, T extends Identifiable.Serializable<V>>
     }
 
     @Override
-    public boolean add(T element) throws IOException {
-        if(Arrays.stream(element.getClass().getDeclaredFields()).anyMatch(Objects::isNull)) {
-            throw new IOException("Tried to add element to manager with null field.");
-        }
+    public boolean add(T element) {
         return this.elements.add(element);
     }
 

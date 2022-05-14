@@ -71,7 +71,7 @@ public class Route implements Identifiable.Serializable<RouteIdentifier>, Compar
 
     @Override
     public @NotNull File getFile(@NotNull File file) {
-        return new File(file.getPath() + this.getIdentifier().getId() + ".yml");
+        return new File(file, this.getIdentifier().getId() + ".yml");
     }
 
     @Override

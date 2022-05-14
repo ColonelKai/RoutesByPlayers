@@ -75,7 +75,7 @@ public class Node implements Identifiable.Serializable<String> {
 
     @Override
     public File getFile(File file) {
-        return new File(file.getPath() + this.name + ".yml");
+        return new File(file.getPath(), this.name + ".yml");
     }
 
     // endregion

@@ -37,7 +37,7 @@ public class RouteManager extends AbstractManager<RouteIdentifier, Route> {
     }
 
     @Override
-    public boolean add(@NotNull Route element) throws IOException {
+    public boolean add(@NotNull Route element) {
         try {
             element.getFirstNode();
             element.getSecondNode();

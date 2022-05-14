@@ -1,7 +1,5 @@
 package colonelkai.routesbyplayers.util.balance;
 
-import colonelkai.routesbyplayers.RoutesByPlayers;
-
 import java.io.File;
 
 public class IncomeBalance extends UserBalance {
@@ -12,6 +10,6 @@ public class IncomeBalance extends UserBalance {
 
     @Override
     public File getFile(File file) {
-        return new File(file.getPath() + this.owner.toString() + ".yml");
+        return new File(file, this.owner.toString() + ".yml");
     }
 }
