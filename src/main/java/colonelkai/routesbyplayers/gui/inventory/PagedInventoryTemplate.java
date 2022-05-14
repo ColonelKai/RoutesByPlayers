@@ -18,12 +18,12 @@ public interface PagedInventoryTemplate extends InventoryTemplate {
 
     @Override
     default Collection<Slot> getSlots() {
-        return this.getSlots(0);
+        return this.getSlots(1);
     }
 
     @Override
     default @NotNull Inventory create(@NotNull Player player) {
-        return this.create(player, 0);
+        return this.create(player, 1);
     }
 
     default @NotNull Inventory create(@NotNull Player player, int page) {

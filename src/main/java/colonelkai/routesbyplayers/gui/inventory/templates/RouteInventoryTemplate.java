@@ -29,19 +29,8 @@ public class RouteInventoryTemplate implements PagedInventoryTemplate {
     public TreeSet<Slot> getSlots(int page) {
         List<Route> orderedRoutes = Managers.getInstance().getRouteManager().getElements().stream().sorted().collect(Collectors.toList());
         int itemsPerPage = this.getInventorySize() - 9;
-        int maxIndex = itemsPerPage * page;
-        int minIndex;
-        if(maxIndex+1>orderedRoutes.size() && page!= 0) {
-            int newMaxIndex = orderedRoutes.size() - 1;
-            if(newMaxIndex<0) {
-                newMaxIndex = 0;
-            }
-            int diff = maxIndex-newMaxIndex;
-            minIndex = (newMaxIndex - (itemsPerPage)) + diff;
-            maxIndex = newMaxIndex;
-        } else {
-            minIndex = maxIndex - (itemsPerPage - 1);
-        }
+        int maxIndex = Math.min(itemsPerPage * page, orderedRoutes.size());
+        int minIndex = Math.max(maxIndex - itemsPerPage, 0);
         List<Route> pageRoutes = orderedRoutes.subList(minIndex, maxIndex);
         TreeSet<Slot> slots = new TreeSet<>();
         for (int i = 0; i < pageRoutes.size(); i++) {
