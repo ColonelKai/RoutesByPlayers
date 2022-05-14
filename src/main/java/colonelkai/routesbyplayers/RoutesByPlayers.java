@@ -41,7 +41,6 @@ public final class RoutesByPlayers extends JavaPlugin {
         plugin = this;
         Bukkit.getPluginManager().registerEvents(new InventoryEventHandler(), this);
         Managers.getInstance().getConfigManager().readConfig();
-        this.getLogger().info("Loading Data...");
         RoutesByPlayers.loadAllData();
         this.getLogger().info("Registering Events...");
         Bukkit.getPluginManager().registerEvents(new InventoryEventHandler(), this);
@@ -54,11 +53,13 @@ public final class RoutesByPlayers extends JavaPlugin {
         RoutesByPlayers.saveAllData();
     }
 
-    private static void loadAllData() {
+    public static void loadAllData() {
+        RoutesByPlayers.getPlugin().getLogger().info("Loading Data...");
         Managers.getInstance().getSerializableManagers().forEach(Manager::reloadAll);
     }
 
-    private static void saveAllData() {
+    public static void saveAllData() {
+        RoutesByPlayers.getPlugin().getLogger().info("Saving Data...");
         Managers.getInstance().getSerializableManagers().forEach(Manager::saveAll);
     }
 }

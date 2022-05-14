@@ -5,6 +5,7 @@ import colonelkai.routesbyplayers.util.identity.Identifiable;
 import colonelkai.routesbyplayers.util.identity.customidentifier.RouteIdentifier;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,14 +13,16 @@ import java.io.IOException;
 public class Route implements Identifiable.Serializable<RouteIdentifier>, Comparable<Route> {
     private Node node1;
     private Node node2;
+    private int Node1Price;
+    private int Node2Price;
 
-    public Node getNode(int nodeNumber) throws IOException {
+    public @Nullable Node getNode(int nodeNumber) {
         if (nodeNumber == 1) {
             return this.node1;
         } else if (nodeNumber == 2) {
             return this.node2;
         }
-        throw new IOException("Invalid parameter passed to getNode(), must be between 1 and 2.");
+        return null;
     }
 
     public boolean containsNode(Node node) {
@@ -59,4 +62,26 @@ public class Route implements Identifiable.Serializable<RouteIdentifier>, Compar
     public int compareTo(@NotNull Route o) {
         return this.getIdentifier().compareTo(o.getIdentifier());
     }
+
+    public int getNode1Price() {
+        return this.Node1Price;
+    }
+
+    public void setNode1Price(int node1Price) {
+        this.Node1Price = node1Price;
+    }
+
+    public int getNode2Price() {
+        return this.Node2Price;
+    }
+
+    public int getTotalPrice() {
+        return this.Node1Price+this.Node2Price;
+    }
+
+    public void setNode2Price(int node2Price) {
+        this.Node2Price = node2Price;
+    }
 }
+
+

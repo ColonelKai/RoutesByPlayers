@@ -15,7 +15,7 @@ public interface Manager<V, T extends Identifiable.Serializable<V>> {
 
     void save(T value) throws IOException;
 
-    boolean add(T element);
+    boolean add(T element) throws IOException;
 
     boolean addAll(Collection<? extends T> elements);
 

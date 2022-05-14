@@ -18,8 +18,20 @@ public class RouteManager extends AbstractManager<RouteIdentifier, Route> {
                         .ROUTE_IDENTIFIER
                         .get(configuration)
                         .orElseThrow(() -> new IllegalArgumentException("Route-Identifier key is missing"));
+        int nodeOnePrice =
+                SerializationKeys
+                        .NODE1PRICE
+                        .get(configuration)
+                        .orElseThrow(() -> new IllegalArgumentException("Node 1 price key is missing"));
+        int nodeTwoPrice =
+                SerializationKeys
+                        .NODE1PRICE
+                        .get(configuration)
+                        .orElseThrow(() -> new IllegalArgumentException("Node 1 price key is missing"));
         Route route = new Route();
         route.setIdentifier(routeIdentifier);
+        route.setNode1Price(nodeOnePrice);
+        route.setNode2Price(nodeTwoPrice);
         return route;
     }
 
@@ -34,6 +46,9 @@ public class RouteManager extends AbstractManager<RouteIdentifier, Route> {
         }
         YamlConfiguration configuration = YamlConfiguration.loadConfiguration(file);
         SerializationKeys.ROUTE_IDENTIFIER.set(configuration, value.getIdentifier());
+        SerializationKeys.NODE1PRICE.set(configuration, value.getNode1Price());
+        SerializationKeys.NODE2PRICE.set(configuration, value.getNode2Price());
+
         configuration.save(file);
     }
 

@@ -4,7 +4,7 @@ import colonelkai.routesbyplayers.gui.inventory.PagedInventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.slot.routelist.NextPageSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.routelist.PageIndicatorSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.routelist.PreviousPageSlot;
-import colonelkai.routesbyplayers.gui.inventory.slot.RouteSlot;
+import colonelkai.routesbyplayers.gui.inventory.slot.routelist.RouteSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
 import colonelkai.routesbyplayers.manager.Managers;
 import colonelkai.routesbyplayers.util.Route;
@@ -34,7 +34,7 @@ public class RouteInventoryTemplate implements PagedInventoryTemplate {
         List<Route> pageRoutes = orderedRoutes.subList(minIndex, maxIndex);
         TreeSet<Slot> slots = new TreeSet<>();
         for (int i = 0; i < pageRoutes.size(); i++) {
-            slots.add(new RouteSlot(this, i + 9));
+            slots.add(new RouteSlot(this, i + 9, pageRoutes.get(i)));
         }
         slots.add(new NextPageSlot(this));
         slots.add(new PreviousPageSlot(this));
