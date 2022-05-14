@@ -21,7 +21,7 @@ public class RBPGuiDebug implements CommandExecutor {
         Player player = ((Player) sender).getPlayer();
         String name = args[0];
         if (name.equals("RouteList")) {
-            player.openInventory(new RouteInventoryTemplate().create(player));
+            player.openInventory(new RouteInventoryTemplate().create(player, 1));
             player.sendMessage("Opening RouteList...");
             return true;
 

@@ -22,7 +22,7 @@ public class InventoryManager {
                 .filter(field -> Modifier.isFinal(field.getModifiers()))
                 .filter(field -> Modifier.isPublic(field.getModifiers()))
                 .filter(field -> Modifier.isStatic(field.getModifiers()))
-                .filter(field -> field.getType().isAssignableFrom(InventoryTemplate.class))
+                .filter(field -> InventoryTemplate.class.isAssignableFrom(field.getType()))
                 .map(field -> {
                     try {
                         return (InventoryTemplate) field.get(null);

@@ -43,6 +43,8 @@ public final class RoutesByPlayers extends JavaPlugin {
         Managers.getInstance().getConfigManager().readConfig();
         this.getLogger().info("Loading Data...");
         RoutesByPlayers.loadAllData();
+        this.getLogger().info("Registering Events...");
+        Bukkit.getPluginManager().registerEvents(new InventoryEventHandler(), this);
         this.getLogger().info("Registering commands...");
         Commands.register();
     }

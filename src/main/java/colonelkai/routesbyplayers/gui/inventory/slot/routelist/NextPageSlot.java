@@ -1,7 +1,9 @@
-package colonelkai.routesbyplayers.gui.inventory.slot;
+package colonelkai.routesbyplayers.gui.inventory.slot.routelist;
 
 import colonelkai.routesbyplayers.gui.inventory.ItemStackBuilder;
 import colonelkai.routesbyplayers.gui.inventory.PagedInventoryTemplate;
+import colonelkai.routesbyplayers.gui.inventory.slot.PageSpecificSlot;
+import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
 import colonelkai.routesbyplayers.gui.inventory.slot.event.SlotEvents;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -10,15 +12,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
+public class NextPageSlot extends Slot implements PageSpecificSlot {
 
-public class PreviousPageSlot extends Slot implements PageSpecificSlot {
 
-
-    public PreviousPageSlot(@SuppressWarnings("TypeMayBeWeakened") @NotNull PagedInventoryTemplate template) {
-        super(template, 8, new ItemStackBuilder()
-                        .setMaterial(Material.PLAYER_HEAD)
+    public NextPageSlot(@SuppressWarnings("TypeMayBeWeakened") @NotNull PagedInventoryTemplate template) {
+        super(template, 53, new ItemStackBuilder()
+                        .setMaterial(Material.ARROW)
                         .setAmount(1)
-                        .setName("Previous")
+                        .setName("Next")
                         .addLore("To page: 0")
                         .build(),
                 SlotEvents.CANCEL_DRAG,
@@ -26,19 +27,19 @@ public class PreviousPageSlot extends Slot implements PageSpecificSlot {
     }
 
     @Override
-    public @NotNull ItemStack getStack(int page) {
+    public @NotNull PagedInventoryTemplate getTemplate() {
+        return (PagedInventoryTemplate) super.getTemplate();
+    }
+
+    @Override
+    public ItemStack getStack(int page) {
         ItemStack stack = this.getStack();
         ItemMeta meta = stack.getItemMeta();
         if (meta == null) {
             throw new RuntimeException("No meta can be found");
         }
-        meta.setLore(Collections.singletonList("To page: " + page));
+        meta.setLore(Collections.singletonList("To page: " + (page+1)));
         stack.setItemMeta(meta);
         return stack;
-    }
-
-    @Override
-    public @NotNull PagedInventoryTemplate getTemplate() {
-        return (PagedInventoryTemplate) super.getTemplate();
     }
 }

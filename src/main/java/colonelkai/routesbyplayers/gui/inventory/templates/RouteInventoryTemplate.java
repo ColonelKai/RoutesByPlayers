@@ -1,8 +1,9 @@
 package colonelkai.routesbyplayers.gui.inventory.templates;
 
 import colonelkai.routesbyplayers.gui.inventory.PagedInventoryTemplate;
-import colonelkai.routesbyplayers.gui.inventory.slot.NextPageSlot;
-import colonelkai.routesbyplayers.gui.inventory.slot.PreviousPageSlot;
+import colonelkai.routesbyplayers.gui.inventory.slot.routelist.NextPageSlot;
+import colonelkai.routesbyplayers.gui.inventory.slot.routelist.PageIndicatorSlot;
+import colonelkai.routesbyplayers.gui.inventory.slot.routelist.PreviousPageSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.RouteSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
 import colonelkai.routesbyplayers.manager.Managers;
@@ -30,10 +31,14 @@ public class RouteInventoryTemplate implements PagedInventoryTemplate {
         int itemsPerPage = this.getInventorySize() - 9;
         int maxIndex = itemsPerPage * page;
         int minIndex;
-        if(maxIndex+1>orderedRoutes.size()) {
+        if(maxIndex+1>orderedRoutes.size() && page!= 0) {
             int newMaxIndex = orderedRoutes.size() - 1;
+            if(newMaxIndex<0) {
+                newMaxIndex = 0;
+            }
             int diff = maxIndex-newMaxIndex;
-            minIndex = (maxIndex - (itemsPerPage - 1)) + diff;
+            minIndex = (newMaxIndex - (itemsPerPage)) + diff;
+            maxIndex = newMaxIndex;
         } else {
             minIndex = maxIndex - (itemsPerPage - 1);
         }
@@ -44,6 +49,7 @@ public class RouteInventoryTemplate implements PagedInventoryTemplate {
         }
         slots.add(new NextPageSlot(this));
         slots.add(new PreviousPageSlot(this));
+        slots.add(new PageIndicatorSlot(this));
         return slots;
     }
 
