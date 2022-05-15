@@ -5,9 +5,7 @@ import colonelkai.routesbyplayers.gui.InventoryManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Managers {
@@ -15,6 +13,8 @@ public class Managers {
     private final UpkeepBalanceManager upkeepBalance = new UpkeepBalanceManager();
     private final NodeManager node = new NodeManager();
     private final RouteManager route = new RouteManager();
+
+
     private final InventoryManager inventory = new InventoryManager();
     private final ConfigManager config = new ConfigManager();
 
@@ -49,22 +49,12 @@ public class Managers {
     }
 
     public Collection<Manager<?, ?>> getSerializableManagers() {
-        return Arrays
-                .stream(this.getClass().getDeclaredFields())
-                .filter(field -> Modifier.isPrivate(field.getModifiers()))
-                .filter(field -> Modifier.isFinal(field.getModifiers()))
-                .filter(field -> Manager.class.isAssignableFrom(field.getType()))
-                .map(field -> {
-                    try {
-                        return (Manager<?, ?>) field.get(this);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                        //noinspection ReturnOfNull
-                        return null;
-                    }
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
+        List<Manager<?, ?>> list = new ArrayList<>();
+        list.add(this.incomeBalance);
+        list.add(this.upkeepBalance);
+        list.add(this.node);
+        list.add(this.route);
+        return list;
     }
 
     public static @NotNull Managers getInstance() {

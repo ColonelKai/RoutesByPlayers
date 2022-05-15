@@ -14,7 +14,7 @@ public class IntegerKey extends AbstractSerializationKey<Integer> {
     @Override
     public @NotNull Optional<Integer> get(@NotNull FileConfiguration configuration) {
         //check fixes the default boolean value of '0'
-        if (configuration.contains(this.getNode(), true)) {
+        if (!configuration.contains(this.getNode(), true)) {
             return Optional.empty();
         }
         return Optional.of(configuration.getInt(this.getNode()));
