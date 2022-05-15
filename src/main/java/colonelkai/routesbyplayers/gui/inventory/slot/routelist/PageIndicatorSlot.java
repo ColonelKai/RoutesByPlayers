@@ -6,6 +6,7 @@ import colonelkai.routesbyplayers.gui.inventory.slot.PageSpecificSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
 import colonelkai.routesbyplayers.gui.inventory.slot.event.SlotEvent;
 import colonelkai.routesbyplayers.gui.inventory.slot.event.SlotEvents;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,8 +19,8 @@ public class PageIndicatorSlot extends Slot implements PageSpecificSlot {
         super(template, 49, new ItemStackBuilder()
                         .setMaterial(Material.BOOK)
                         .setAmount(1)
-                        .setName("Viewing:")
-                        .addLore("Page: 0")
+                        .setName(ChatColor.WHITE+"Viewing:")
+                        .addLore(ChatColor.WHITE+"Page: 0")
                         .build(),
                 SlotEvents.CANCEL_DRAG,
                 SlotEvents.TO_PAGE_CLICK_EVENT);

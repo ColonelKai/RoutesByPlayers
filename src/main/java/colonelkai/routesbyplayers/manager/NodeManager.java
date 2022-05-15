@@ -54,4 +54,15 @@ public class NodeManager extends AbstractManager<String, Node> {
         return new File(RoutesByPlayers.getPlugin().getDataFolder() + File.separator + "data/node");
     }
 
+    public static String getLocationString(Node node) {
+        String locationStr;
+        if(Managers.getInstance().getConfigManager().getIfPublicNodes()) {
+            Location loc = node.getLocation();
+            locationStr = (loc.getBlockX() + ", " + loc.getBlockY() + ", " + loc.getBlockZ() + " at " + loc.getWorld().getName());
+        } else {
+            locationStr = "Unknown Location";
+        }
+        return locationStr;
+    }
+
 }

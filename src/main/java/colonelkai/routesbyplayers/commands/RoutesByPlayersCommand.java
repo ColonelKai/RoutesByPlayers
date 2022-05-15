@@ -1,5 +1,6 @@
 package colonelkai.routesbyplayers.commands;
 
+import colonelkai.routesbyplayers.gui.inventory.templates.MainMenuTemplate;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +15,8 @@ public class RoutesByPlayersCommand implements CommandExecutor {
             return false;
         }
 
-
+        Player player = (Player) sender;
+        player.openInventory(new MainMenuTemplate().create(player));
 
         return true;
     }

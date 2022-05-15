@@ -6,14 +6,14 @@ Upkeep:
 Currency:
   # determines the way which your players will handle upkeep,
   # and travel costs.
-  # if you should use vault money. Requires Vault, duh.
+  # if you should use vault money. Requires Vault, duh. (COMING SOON)
   Vault: false
   # if you aren't using vault, what item you should use.
   Item: DIAMOND
 
 # if the nodes coordinates will be available to everyone on GUI
 PublicNodes: true
-# if Dynmap is installed, it will add markers for nodes
+# if Dynmap is installed, it will add markers for nodes (COMING SOON)
 NodesOnDynmap: true
 # Minimum distance required between 2 nodes. If someone tries
 # to create a node while there is another within this distance, the

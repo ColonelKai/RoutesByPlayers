@@ -5,6 +5,7 @@ import colonelkai.routesbyplayers.gui.inventory.PagedInventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.slot.PageSpecificSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
 import colonelkai.routesbyplayers.gui.inventory.slot.event.SlotEvents;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,7 +21,7 @@ public class PreviousPageSlot extends Slot implements PageSpecificSlot {
         super(template, 45, new ItemStackBuilder()
                         .setMaterial(Material.ARROW)
                         .setAmount(1)
-                        .setName("Previous")
+                        .setName(ChatColor.WHITE+"Previous")
                         .addLore("To page: 0")
                         .build(),
                 SlotEvents.CANCEL_DRAG,

@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 public class IncomeBalanceManager extends AbstractManager<UUID, IncomeBalance> {
@@ -48,6 +49,18 @@ public class IncomeBalanceManager extends AbstractManager<UUID, IncomeBalance> {
     @Override
     public File getParentFolder() {
         return new File(RoutesByPlayers.getPlugin().getDataFolder() + File.separator + "data/incomebalance");
+    }
+
+    // returns the IncomeBalance owned by said UUID, and if doesn't exist, creates a new one.
+    public IncomeBalance getOrCreate(UUID uuid) {
+        Optional<IncomeBalance> incomeBalanceOptional = this.getBy(uuid);
+        if(!incomeBalanceOptional.isPresent()) {
+            IncomeBalance newIncomeBalance = new IncomeBalance();
+            newIncomeBalance.setIdentifier(uuid);
+            this.add(newIncomeBalance);
+            return newIncomeBalance;
+        }
+        return incomeBalanceOptional.get();
     }
 
 

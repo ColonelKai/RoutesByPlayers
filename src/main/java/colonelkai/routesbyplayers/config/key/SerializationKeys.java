@@ -8,11 +8,12 @@ public interface SerializationKeys {
     IntegerKey NODE2PRICE = new IntegerKey("nodeprice.two");
     StringKey NAME = new StringKey("name");
     RouteIdentifierKey ROUTE_IDENTIFIER = new RouteIdentifierKey("nodeidentifier");
-    BooleanKey USE_VAULT = new BooleanKey("Currency.Vault.Use");
+
     DoubleKey UPKEEP_AMOUNT = new DoubleKey("Upkeep.Amount");
-    ItemKey UPKEEP_ITEM = new ItemKey("Upkeep.Item");
-    BooleanKey NODES_PUBLIC = new BooleanKey("Nodes.Public");
-    BooleanKey NODES_DYNMAP = new BooleanKey("Nodes.Dynmap");
-    IntegerKey ROUTE_DISTANCE_MIN = new IntegerKey("Route.Distance.Minimum");
-    IntegerKey NODES_MAXIMUM = new IntegerKey("Nodes.Maximum");
+    BooleanKey USE_VAULT = new BooleanKey("Currency.Vault");
+    ItemKey UPKEEP_ITEM = new ItemKey("Currency.Item");
+    BooleanKey NODES_PUBLIC = new BooleanKey("PublicNodes");
+    BooleanKey NODES_DYNMAP = new BooleanKey("NodesOnDynmap");
+    IntegerKey ROUTE_DISTANCE_MIN = new IntegerKey("MinimumDistance");
+    IntegerKey NODES_MAXIMUM = new IntegerKey("MaximumNodes");
 }

@@ -3,6 +3,7 @@ package colonelkai.routesbyplayers.gui.inventory.slot.routelist;
 import colonelkai.routesbyplayers.gui.inventory.InventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.ItemStackBuilder;
 import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
+import colonelkai.routesbyplayers.gui.inventory.slot.event.SlotEvents;
 import colonelkai.routesbyplayers.util.Route;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,6 +17,8 @@ public class RouteSlot extends Slot {
                 .addLore(ChatColor.GRAY + "Cost: " + route.getTotalPrice())
                 .setMaterial(Material.COMPASS)
                 .setAmount(1)
-                .build());
+                .build(),
+                SlotEvents.CANCEL_DRAG
+                );
     }
 }

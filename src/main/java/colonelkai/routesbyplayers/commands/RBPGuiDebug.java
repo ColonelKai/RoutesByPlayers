@@ -34,6 +34,16 @@ public class RBPGuiDebug implements CommandExecutor, TabExecutor {
         player.sendMessage("Opening RouteList...");
     };
 
+    private static final BiConsumer<CommandSender, String[]> NODE_LIST = (sender, arg) -> {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Can't open via non-player sender.");
+            return;
+        }
+        Player player = ((Player) sender);
+        player.openInventory(InventoryTemplates.NODE.create(player));
+        player.sendMessage("Opening NodeList...");
+    };
+
     private static final BiConsumer<CommandSender, String[]> CREATE = (sender, arg) -> {
         sender.sendMessage("Creating....");
         Node nodeA = new Node(
@@ -69,6 +79,7 @@ public class RBPGuiDebug implements CommandExecutor, TabExecutor {
         ARGUMENTS.put("route_list", ROUTE_LIST);
         ARGUMENTS.put("create_test_routen_nodes", CREATE);
         ARGUMENTS.put("save_all", SAVE_ALL);
+        ARGUMENTS.put("node_list", NODE_LIST);
     }
 
     // horrible, horrible code but it will all be deleted after I'm done setting up GUIs so, just don't care.

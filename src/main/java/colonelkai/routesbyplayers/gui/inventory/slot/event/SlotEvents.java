@@ -1,7 +1,14 @@
 package colonelkai.routesbyplayers.gui.inventory.slot.event;
 
+import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.gui.inventory.InventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.PagedInventoryTemplate;
+import colonelkai.routesbyplayers.gui.inventory.templates.InventoryTemplates;
+import colonelkai.routesbyplayers.gui.inventory.templates.NodeInventoryTemplate;
+import colonelkai.routesbyplayers.manager.Managers;
+import colonelkai.routesbyplayers.util.balance.IncomeBalance;
+import colonelkai.routesbyplayers.util.currency.CurrencyBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -11,6 +18,23 @@ import java.util.List;
 public interface SlotEvents {
 
     SlotDragEvent CANCEL_DRAG = (event, slot) -> event.setCancelled(true);
+    SlotClickEvent CANCEL_CLICK = (event, slot) -> event.setCancelled(true);
+    SlotClickEvent OPEN_ROUTE_LIST_CLICK = (event, slot) -> {
+        event.setCancelled(true);
+        event.getWhoClicked().closeInventory();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(RoutesByPlayers.getPlugin(),
+                () ->
+                        event.getWhoClicked().openInventory(InventoryTemplates.ROUTE.create((Player) event.getWhoClicked())),
+                0L);
+    };
+    SlotClickEvent OPEN_NODE_LIST_CLICK = (event, slot) -> {
+        event.setCancelled(true);
+        event.getWhoClicked().closeInventory();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(RoutesByPlayers.getPlugin(),
+                () ->
+                        event.getWhoClicked().openInventory(InventoryTemplates.NODE.create((Player) event.getWhoClicked())),
+                0L);
+    };
     SlotClickEvent TO_PAGE_CLICK_EVENT = (event, slot) -> {
         InventoryTemplate inv = slot.getTemplate();
         if (!(inv instanceof PagedInventoryTemplate)) {
@@ -46,5 +70,10 @@ public interface SlotEvents {
         }
         Player player = (Player) event.getWhoClicked(); //bukkit doesn't allow any other human entity by default -> so this is a safe cast
         ((PagedInventoryTemplate) inv).create(player, page);
+    };
+    SlotClickEvent WITHDRAW_FROM_INCOMEBALANCE = (event, slot) -> {
+        IncomeBalance incomeBalance = Managers.getInstance().getIncomeBalanceManager().getOrCreate(event.getWhoClicked().getUniqueId());
+        CurrencyBuilder.build(incomeBalance.getAmount()).transactionInventory(event.getWhoClicked().getUniqueId());
+        incomeBalance.setAmount(0);
     };
 }
