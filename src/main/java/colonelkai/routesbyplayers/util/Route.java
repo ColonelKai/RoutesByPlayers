@@ -8,30 +8,46 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 
 public class Route implements Identifiable.Serializable<RouteIdentifier>, Comparable<Route> {
-    private Node node1;
-    private Node node2;
+    private @Nullable Node node1;
+    private @Nullable Node node2;
     private int Node1Price;
     private int Node2Price;
 
-    public @Nullable Node getNode(int nodeNumber) {
-        if (nodeNumber == 1) {
-            return this.node1;
-        } else if (nodeNumber == 2) {
-            return this.node2;
+    public @NotNull Node getFirstNode() {
+        if (this.node1 == null) {
+            throw new IllegalStateException("Node 1 has not been set");
         }
-        return null;
+        return this.node1;
+    }
+
+    public @NotNull Node getSecondNode() {
+        if (this.node2 == null) {
+            throw new IllegalStateException("Node 2 has not been set");
+        }
+        return this.node2;
+    }
+
+    public @NotNull Node getNode(int nodeNumber) {
+        switch (nodeNumber) {
+            case 1:
+                return this.getFirstNode();
+            case 2:
+                return this.getSecondNode();
+            default:
+                throw new IndexOutOfBoundsException("Invalid nodeNumber, can only accept either 1 or 2");
+
+        }
     }
 
     public boolean containsNode(Node node) {
-        return (this.node1.equals(node) || this.node2.equals(node));
+        return (this.getFirstNode().equals(node) || this.getSecondNode().equals(node));
     }
 
     public int getUpkeep() {
-        Location a = this.node1.getLocation();
-        Location b = this.node2.getLocation();
+        Location a = this.getFirstNode().getLocation();
+        Location b = this.getSecondNode().getLocation();
 
         return (int) Math.round(
                 // calculate distances between a and b
@@ -42,20 +58,20 @@ public class Route implements Identifiable.Serializable<RouteIdentifier>, Compar
 
 
     @Override
-    public RouteIdentifier getIdentifier() {
-        return new RouteIdentifier(this.node1, this.node2);
+    public @NotNull RouteIdentifier getIdentifier() {
+        return new RouteIdentifier(this.getNode(1), this.getNode(2));
     }
 
     //SEE WHAT I MEAN BY IT MAKES NO SENSE
     @Override
-    public void setIdentifier(RouteIdentifier element) {
+    public void setIdentifier(@NotNull RouteIdentifier element) {
         this.node1 = element.getNodeA();
         this.node2 = element.getNodeB();
     }
 
     @Override
-    public File getFile(File file) {
-        return new File(file.getPath() + this.getIdentifier().getId() + ".yml");
+    public @NotNull File getFile(@NotNull File file) {
+        return new File(file, this.getIdentifier().getId() + ".yml");
     }
 
     @Override
@@ -76,7 +92,7 @@ public class Route implements Identifiable.Serializable<RouteIdentifier>, Compar
     }
 
     public int getTotalPrice() {
-        return this.Node1Price+this.Node2Price;
+        return this.Node1Price + this.Node2Price;
     }
 
     public void setNode2Price(int node2Price) {

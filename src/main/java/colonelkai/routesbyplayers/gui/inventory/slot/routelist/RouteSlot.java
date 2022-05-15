@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
 
 public class RouteSlot extends Slot {
-    public RouteSlot(@NotNull InventoryTemplate template, int slotIndex, Route route) {
+    public RouteSlot(@NotNull InventoryTemplate template, int slotIndex, @NotNull Route route) {
         super(template, slotIndex, new ItemStackBuilder()
                 .setName(Color.WHITE + route.getNode(1).getIdentifier() + " to " + route.getNode(2).getIdentifier())
                 .addLore(Color.GRAY + "Upkeep: " + route.getUpkeep())

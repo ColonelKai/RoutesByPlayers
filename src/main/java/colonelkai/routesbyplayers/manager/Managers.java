@@ -53,7 +53,7 @@ public class Managers {
                 .stream(this.getClass().getDeclaredFields())
                 .filter(field -> Modifier.isPrivate(field.getModifiers()))
                 .filter(field -> Modifier.isFinal(field.getModifiers()))
-                .filter(field -> field.getType().isAssignableFrom(Manager.class))
+                .filter(field -> Manager.class.isAssignableFrom(field.getType()))
                 .map(field -> {
                     try {
                         return (Manager<?, ?>) field.get(this);

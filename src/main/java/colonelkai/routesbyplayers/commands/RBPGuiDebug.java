@@ -10,81 +10,94 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
-public class RBPGuiDebug implements CommandExecutor {
+public class RBPGuiDebug implements CommandExecutor, TabExecutor {
+
+    private static final BiConsumer<CommandSender, String[]> ROUTE_LIST = (sender, arg) -> {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("Can't open via non-player sender.");
+            return;
+        }
+        Player player = ((Player) sender);
+        player.openInventory(InventoryTemplates.ROUTE.create(player));
+        player.sendMessage("Opening RouteList...");
+    };
+
+    private static final BiConsumer<CommandSender, String[]> CREATE = (sender, arg) -> {
+        sender.sendMessage("Creating....");
+        Node nodeA = new Node(
+                new Location(RoutesByPlayers.getPlugin().getServer().getWorld("world"), 1000, 0, 1000),
+                UUID.randomUUID(),
+                "TestNode2"
+        );
+        Node nodeB = new Node(
+                new Location(RoutesByPlayers.getPlugin().getServer().getWorld("world"), 0, 0, 0),
+                UUID.randomUUID(),
+                "TestNode1"
+        );
+
+        Managers.getInstance().getNodeManager().add(nodeA);
+        Managers.getInstance().getNodeManager().add(nodeB);
+
+        Route route = new Route();
+        route.setIdentifier(new RouteIdentifier(nodeA, nodeB));
+        route.setNode2Price(3);
+        route.setNode1Price(5);
+
+        Managers.getInstance().getRouteManager().add(route);
+    };
+
+    private static final BiConsumer<CommandSender, String[]> SAVE_ALL = (sender, arg) -> {
+        RoutesByPlayers.saveAllData();
+    };
+
+
+    public static final Map<String, BiConsumer<CommandSender, String[]>> ARGUMENTS = new HashMap<>();
+
+    static {
+        ARGUMENTS.put("route_list", ROUTE_LIST);
+        ARGUMENTS.put("create_test_routen_nodes", CREATE);
+        ARGUMENTS.put("save_all", SAVE_ALL);
+    }
 
     // horrible, horrible code but it will all be deleted after I'm done setting up GUIs so, just don't care.
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (!(sender instanceof Player)) {
-            sender.sendMessage("Can't open via non-player sender.");
-            return false;
-        }
-        Player player = ((Player) sender);
         if (args.length == 0) {
-            player.sendMessage("Argument required (RouteList, CreateTestRoutenNodes, saveAll)");
+            sender.sendMessage("Argument required " + ARGUMENTS.keySet());
             return false;
         }
-        String name = args[0];
-        if (name.equals("RouteList")) {
-            if (Managers.getInstance().getRouteManager().getElements().isEmpty()) {
-                Route route = new Route();
-                try {
-                    Managers.getInstance().getRouteManager().add(route);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            player.openInventory(InventoryTemplates.ROUTE.create(player));
-            player.sendMessage("Opening RouteList...");
-            return true;
+        String name = args[0].toLowerCase();
+        BiConsumer<CommandSender, String[]> consumer = ARGUMENTS.get(name);
+        if (consumer == null) {
+            sender.sendMessage("Unknown argument");
+            return false;
         }
-        else if(name.equals("CreateTestRoutenNodes")) {
-            player.sendMessage("Creating....");
-            Node nodeA = new Node(
-                    new Location(RoutesByPlayers.getPlugin().getServer().getWorld("world"), 1000, 0, 1000),
-                    UUID.randomUUID(),
-                    "TestNode2"
-            );
-            Node nodeB = new Node(
-                    new Location(RoutesByPlayers.getPlugin().getServer().getWorld("world"), 0, 0, 0),
-                    UUID.randomUUID(),
-                    "TestNode1"
-            );
+        consumer.accept(sender, args);
+        return true;
+    }
 
-            try {
-                Managers.getInstance().getNodeManager().add(nodeA);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                Managers.getInstance().getNodeManager().add(nodeB);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Route route = new Route();
-            route.setIdentifier(new RouteIdentifier(nodeA, nodeB));
-            route.setNode2Price(3);
-            route.setNode1Price(5);
-
-            try {
-                Managers.getInstance().getRouteManager().add(route);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return true;
-        } else if(name.equals("saveAll")) {
-            RoutesByPlayers.saveAllData();
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+        String peek = "";
+        if (strings.length > 0) {
+            peek = strings[0];
         }
-        player.sendMessage("reached fi.");
-        return false;
+
+        final String finalPeek = peek.toLowerCase();
+        return ARGUMENTS.keySet().stream().filter(a -> a.startsWith(finalPeek.toLowerCase())).sorted().collect(Collectors.toList());
     }
 }
