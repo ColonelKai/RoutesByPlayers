@@ -7,8 +7,10 @@ import colonelkai.routesbyplayers.gui.inventory.templates.InventoryTemplates;
 import colonelkai.routesbyplayers.gui.inventory.templates.NodeInventoryTemplate;
 import colonelkai.routesbyplayers.manager.Managers;
 import colonelkai.routesbyplayers.util.balance.IncomeBalance;
+import colonelkai.routesbyplayers.util.context.TemplateContext;
 import colonelkai.routesbyplayers.util.currency.CurrencyBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -33,6 +35,15 @@ public interface SlotEvents {
         Bukkit.getScheduler().scheduleSyncDelayedTask(RoutesByPlayers.getPlugin(),
                 () ->
                         event.getWhoClicked().openInventory(InventoryTemplates.NODE.create((Player) event.getWhoClicked())),
+                0L);
+    };
+    SlotClickEvent OPEN_BALANCE_CLICK = (event, slot) -> {
+        event.setCancelled(true);
+        event.getWhoClicked().closeInventory();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(RoutesByPlayers.getPlugin(),
+                () -> {
+                        InventoryTemplates.BALANCE.setCtx(new TemplateContext((Player) event.getWhoClicked()));
+                        event.getWhoClicked().openInventory(InventoryTemplates.BALANCE.create((Player) event.getWhoClicked()));},
                 0L);
     };
     SlotClickEvent TO_PAGE_CLICK_EVENT = (event, slot) -> {
@@ -72,8 +83,10 @@ public interface SlotEvents {
         ((PagedInventoryTemplate) inv).create(player, page);
     };
     SlotClickEvent WITHDRAW_FROM_INCOMEBALANCE = (event, slot) -> {
+        event.setCancelled(true);
         IncomeBalance incomeBalance = Managers.getInstance().getIncomeBalanceManager().getOrCreate(event.getWhoClicked().getUniqueId());
         CurrencyBuilder.build(incomeBalance.getAmount()).transactionInventory(event.getWhoClicked().getUniqueId());
+        event.getWhoClicked().sendMessage(ChatColor.GRAY + "Withdrew " + incomeBalance.getAmount() + " from income balance.");
         incomeBalance.setAmount(0);
     };
 }
