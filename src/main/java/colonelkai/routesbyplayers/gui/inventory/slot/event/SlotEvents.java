@@ -66,7 +66,7 @@ public interface SlotEvents {
             throw new RuntimeException("Clicked slot has item without lore, yet located as previous slot");
         }
         String loreLine = lore.get(0);
-        if (loreLine.length() < 10) {
+        if (loreLine.length() < 1) {
             throw new RuntimeException("Clicked slot does not have correct lore");
         }
         String toPageString = loreLine.substring(9);

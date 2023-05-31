@@ -48,12 +48,12 @@ public class RBPGuiDebug implements CommandExecutor, TabExecutor {
         sender.sendMessage("Creating....");
         Node nodeA = new Node(
                 new Location(RoutesByPlayers.getPlugin().getServer().getWorld("world"), 1000, 0, 1000),
-                UUID.randomUUID(),
+                ((Player) sender).getUniqueId(),
                 "TestNode2"
         );
         Node nodeB = new Node(
                 new Location(RoutesByPlayers.getPlugin().getServer().getWorld("world"), 0, 0, 0),
-                UUID.randomUUID(),
+                ((Player) sender).getUniqueId(),
                 "TestNode1"
         );
 
