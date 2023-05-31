@@ -3,6 +3,7 @@ package colonelkai.routesbyplayers.gui.inventory.templates;
 import colonelkai.routesbyplayers.gui.inventory.InventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.slot.Slot;
 import colonelkai.routesbyplayers.gui.inventory.slot.mainmenu.BalanceSlot;
+import colonelkai.routesbyplayers.gui.inventory.slot.mainmenu.ManageSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.mainmenu.NodeListSlot;
 import colonelkai.routesbyplayers.gui.inventory.slot.mainmenu.RouteListSlot;
 import org.bukkit.entity.Player;
@@ -24,6 +25,7 @@ public class MainMenuTemplate implements InventoryTemplate {
         slots.add(new NodeListSlot(this, 10));
         slots.add(new RouteListSlot(this, 12));
         slots.add(new BalanceSlot(this, 14));
+        slots.add(new ManageSlot(this, 16));
         return slots;
     }
 

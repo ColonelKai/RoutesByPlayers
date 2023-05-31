@@ -18,7 +18,8 @@ public class RouteSlot extends Slot {
                 .setMaterial(Material.COMPASS)
                 .setAmount(1)
                 .build(),
-                SlotEvents.CANCEL_DRAG
+                SlotEvents.CANCEL_DRAG,
+                SlotEvents.CANCEL_CLICK
                 );
     }
 }

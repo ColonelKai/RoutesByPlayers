@@ -4,10 +4,9 @@ import colonelkai.routesbyplayers.RoutesByPlayers;
 import colonelkai.routesbyplayers.gui.inventory.InventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.PagedInventoryTemplate;
 import colonelkai.routesbyplayers.gui.inventory.templates.InventoryTemplates;
-import colonelkai.routesbyplayers.gui.inventory.templates.NodeInventoryTemplate;
 import colonelkai.routesbyplayers.manager.Managers;
 import colonelkai.routesbyplayers.util.balance.IncomeBalance;
-import colonelkai.routesbyplayers.util.context.TemplateContext;
+import colonelkai.routesbyplayers.util.context.TemplatePlayerContext;
 import colonelkai.routesbyplayers.util.currency.CurrencyBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -42,8 +41,17 @@ public interface SlotEvents {
         event.getWhoClicked().closeInventory();
         Bukkit.getScheduler().scheduleSyncDelayedTask(RoutesByPlayers.getPlugin(),
                 () -> {
-                        InventoryTemplates.BALANCE.setCtx(new TemplateContext((Player) event.getWhoClicked()));
+                        InventoryTemplates.BALANCE.setCtx(new TemplatePlayerContext((Player) event.getWhoClicked()));
                         event.getWhoClicked().openInventory(InventoryTemplates.BALANCE.create((Player) event.getWhoClicked()));},
+                0L);
+    };
+
+    SlotClickEvent OPEN_MANAGE_CLICK = (event, slot) -> {
+        event.setCancelled(true);
+        event.getWhoClicked().closeInventory();
+        Bukkit.getScheduler().scheduleSyncDelayedTask(RoutesByPlayers.getPlugin(),
+                () -> {
+                    event.getWhoClicked().openInventory(InventoryTemplates.MANAGE.create((Player) event.getWhoClicked()));},
                 0L);
     };
     SlotClickEvent TO_PAGE_CLICK_EVENT = (event, slot) -> {
